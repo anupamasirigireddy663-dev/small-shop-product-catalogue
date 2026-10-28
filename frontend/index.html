@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Browse and manage products in a small shop catalog.">
+
+    <title>Small Shop | Product Catalog</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-content">
+            <a href="#" class="logo" aria-label="Small Shop home">
+                <span class="logo-icon" aria-hidden="true">🛍️</span>
+                <span>Small Shop</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="#catalog">Products</a>
+                <a href="#manage-products">Manage Products</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Welcome Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <p class="eyebrow">WELCOME TO OUR SHOP</p>
+
+                    <h1>Find the products you need.</h1>
+
+                    <p class="hero-description">
+                        Explore our product collection, compare prices,
+                        and discover what's available in our shop.
+                    </p>
+
+                    <a href="#catalog" class="button button-primary">
+                        Explore Products
+                    </a>
+                </div>
+
+                <div class="hero-decoration" aria-hidden="true">
+                    <span>🛒</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Catalog -->
+        <section id="catalog" class="catalog-section">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">OUR COLLECTION</p>
+                        <h2>Product Catalog</h2>
+                        <p class="section-description">
+                            Browse our available products.
+                        </p>
+                    </div>
+
+                    <span id="product-count" class="product-count"
+                          aria-live="polite">
+                        Loading products...
+                    </span>
+                </div>
+
+                <!-- Search and Category Filter -->
+                <div class="catalog-controls">
+                    <div class="search-wrapper">
+                        <label for="search-input">Search products</label>
+
+                        <input
+                            type="search"
+                            id="search-input"
+                            name="search"
+                            placeholder="Search by product name..."
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="filter-wrapper">
+                        <label for="category-filter">Category</label>
+
+                        <select id="category-filter" name="category">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Cards Will Be Added Using JavaScript -->
+                <div
+                    id="product-list"
+                    class="product-grid"
+                    aria-live="polite"
+                    aria-busy="true"
+                >
+                    <p class="loading-message">Loading products...</p>
+                </div>
+
+                <!-- Empty Search Results Message -->
+                <div id="empty-state" class="empty-state" hidden>
+                    <span class="empty-icon" aria-hidden="true">🔎</span>
+
+                    <h3>No products found</h3>
+
+                    <p>
+                        Try a different search term or select another category.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Management -->
+        <section id="manage-products" class="manage-section">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">SHOP MANAGEMENT</p>
+                        <h2>Manage Products</h2>
+                        <p class="section-description">
+                            Add a new product or update an existing one.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="management-layout">
+                    <!-- Add/Edit Product Form -->
+                    <div class="form-card">
+                        <h3 id="form-title">Add a New Product</h3>
+
+                        <p class="form-description">
+                            Enter the product details below.
+                        </p>
+
+                        <form id="product-form">
+                            <!-- Used to identify the product being edited -->
+                            <input
+                                type="hidden"
+                                id="product-id"
+                                name="productId"
+                            >
+
+                            <div class="form-group">
+                                <label for="product-name">
+                                    Product Name <span aria-hidden="true">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="product-name"
+                                    name="name"
+                                    placeholder="e.g. Cotton T-shirt"
+                                    maxlength="100"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="product-description">
+                                    Description
+                                </label>
+
+                                <textarea
+                                    id="product-description"
+                                    name="description"
+                                    placeholder="Describe the product..."
+                                    rows="3"
+                                    maxlength="1000"
+                                ></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="product-price">
+                                        Price (₹) <span aria-hidden="true">*</span>
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="product-price"
+                                        name="price"
+                                        placeholder="e.g. 499.00"
+                                        min="0"
+                                        max="99999999.99"
+                                        step="0.01"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="product-stock">
+                                        Stock Quantity
+                                        <span aria-hidden="true">*</span>
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="product-stock"
+                                        name="stockQuantity"
+                                        placeholder="e.g. 25"
+                                        min="0"
+                                        max="2147483647"
+                                        step="1"
+                                        value="0"
+                                        required
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="product-category">
+                                    Category <span aria-hidden="true">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="product-category"
+                                    name="category"
+                                    placeholder="e.g. Clothing"
+                                    maxlength="50"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="product-image">
+                                    Image URL
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="product-image"
+                                    name="imageUrl"
+                                    placeholder="https://example.com/image.jpg"
+                                    maxlength="2048"
+                                >
+                            </div>
+
+                            <div class="form-actions">
+                                <button
+                                    type="submit"
+                                    id="save-product-button"
+                                    class="button button-primary"
+                                >
+                                    Add Product
+                                </button>
+
+                                <button
+                                    type="button"
+                                    id="cancel-edit-button"
+                                    class="button button-secondary"
+                                    hidden
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+
+                            <p
+                                id="form-message"
+                                class="form-message"
+                                role="status"
+                                aria-live="polite"
+                            ></p>
+                        </form>
+                    </div>
+
+                    <!-- Existing Products Management -->
+                    <div class="management-card">
+                        <h3>Existing Products</h3>
+
+                        <p class="form-description">
+                            Edit product details or remove a product.
+                        </p>
+
+                        <div
+                            id="management-list"
+                            class="management-list"
+                            aria-live="polite"
+                        >
+                            <p class="loading-message">
+                                Loading products...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>
+                &copy; <span id="current-year">2026</span> Small Shop.
+                All rights reserved.
+            </p>
+
+            <a href="#catalog">Back to Products ↑</a>
+        </div>
+    </footer>
+</body>
+</html>
